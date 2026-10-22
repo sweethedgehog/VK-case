@@ -1,0 +1,2 @@
+-r requirements-local.txt
+aiogram>=3.17.0,<4

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#162a4a">
+  <meta name="description" content="Умный помощник по официальным программам дисциплин ИВТ МИЭМ НИУ ВШЭ.">
+  <title>Навигатор ИВТ — программы дисциплин</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Навигатор ИВТ — главная">
+        <span class="brand-mark">ИВТ</span>
+        <span class="brand-label"><strong>Навигатор</strong><small>МИЭМ · НИУ ВШЭ</small></span>
+      </a>
+      <div class="sidebar-rule"></div>
+      <div class="nav-label">РАЗДЕЛЫ</div>
+      <button class="nav-item active" id="navChat"><span class="nav-icon">✳</span> AI-помощник</button>
+      <button class="nav-item" id="navCourses"><span class="nav-icon">▤</span> Каталог дисциплин <span class="nav-count" id="navCourseCount">—</span></button>
+      <div class="sidebar-bottom">
+        <div class="year-card"><span class="year-dot"></span><div><strong>2026/2027</strong><small>Учебный год</small></div></div>
+        <p class="sidebar-foot">Ответы основаны на публичных страницах официального сайта ВШЭ.</p>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">ИВТ</span><strong>Навигатор</strong></div>
+        <div class="topbar-spacer"></div>
+        <div class="service-status" title="Статус API"><span class="status-dot" id="statusDot"></span><span id="statusText">Проверка сервера…</span></div>
+        <button class="icon-button" id="clearChat" title="Очистить диалог" aria-label="Очистить диалог">↺</button>
+      </header>
+
+      <section id="chatView" class="chat-view">
+        <div class="welcome" id="welcome">
+          <div class="eyebrow"><span class="sparkle">✦</span> ТВОЙ УЧЕБНЫЙ НАВИГАТОР</div>
+          <h1>Разберёмся с учёбой<br><span>вместе.</span></h1>
+          <p class="welcome-copy">Спрашивай о программах дисциплин, преподавателях, зачётах, экзаменах и литературе. Я поищу ответ в официальных материалах ВШЭ.</p>
+          <div class="suggestion-grid">
+            <button class="suggestion" data-question="Какие дисциплины есть в загруженной базе?"><span class="suggestion-icon lavender">▤</span><span><strong>Список дисциплин</strong><small>Что есть в каталоге?</small></span><span class="suggestion-arrow">↗</span></button>
+            <button class="suggestion" data-question="Какие формы контроля предусмотрены на дисциплинах первого курса?"><span class="suggestion-icon peach">✓</span><span><strong>Зачёты и экзамены</strong><small>Как оценивают знания?</small></span><span class="suggestion-arrow">↗</span></button>
+            <button class="suggestion" data-question="Какие результаты обучения указаны в программах дисциплин?"><span class="suggestion-icon mint">⌁</span><span><strong>Результаты обучения</strong><small>Чему предстоит научиться?</small></span><span class="suggestion-arrow">↗</span></button>
+            <button class="suggestion" data-question="На каких дисциплинах указана литература и какая именно?"><span class="suggestion-icon blue">⌕</span><span><strong>Рекомендуемая литература</strong><small>С чего начинать подготовку?</small></span><span class="suggestion-arrow">↗</span></button>
+          </div>
+          <div class="welcome-note"><span>ⓘ</span> Помощник не выдумывает учебные правила. Если данных не хватает, он подскажет проверить официальный источник.</div>
+        </div>
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <div id="typing" class="typing hidden"><span></span><span></span><span></span><em>Ищу в программах дисциплин…</em></div>
+      </section>
+
+      <section id="coursesView" class="courses-view hidden">
+        <div class="catalog-head"><div class="eyebrow">ОФИЦИАЛЬНЫЕ МАТЕРИАЛЫ</div><h1>Каталог <span>дисциплин</span></h1><p>Программы, которые сейчас загружены в локальную базу помощника.</p></div>
+        <div class="catalog-tools"><label class="search-box"><span>⌕</span><input id="courseSearch" type="search" placeholder="Найти дисциплину…" autocomplete="off"></label><span id="catalogSummary" class="catalog-summary">Загрузка…</span></div>
+        <div id="courseGrid" class="course-grid"></div>
+        <div id="courseEmpty" class="empty-state hidden">Ничего не найдено. Попробуй другое название.</div>
+        <p class="catalog-disclaimer">Каталог отображает только те страницы, которые были успешно собраны. Полный перечень может отличаться от выборки.</p>
+      </section>
+
+      <footer class="composer-wrap" id="composerWrap">
+        <form id="chatForm" class="composer">
+          <textarea id="questionInput" rows="1" maxlength="1500" placeholder="Напиши вопрос о своей программе…" aria-label="Твой вопрос"></textarea>
+          <div class="composer-bottom"><span class="input-hint">Enter — отправить · Shift + Enter — новая строка</span><button id="sendButton" type="submit" class="send-button" aria-label="Отправить вопрос"><span>Отправить</span><b>↑</b></button></div>
+        </form>
+        <div class="composer-disclaimer">AI может ошибаться. Для важных решений сверяйся с официальной программой дисциплины.</div>
+      </footer>
+    </main>
+  </div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

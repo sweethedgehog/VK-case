@@ -1,0 +1,21 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+# Локальные данные и кэш embeddings
+data/courses.json
+data/chunks.json
+data/embeddings.npy
+data/index_meta.json
+
+# User conversation history is local data
+data/chat_history.sqlite3
+data/chat_history.sqlite3-shm
+data/chat_history.sqlite3-wal
+
+# Other local secrets and logs
+.env.local
+.env.production
+*.log

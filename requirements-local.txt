@@ -1,0 +1,10 @@
+# Быстрая локальная установка сайта/API без скачивания sentence-transformers.
+# Семантические embeddings можно включить позже через SEARCH_MODE=auto и requirements.txt.
+beautifulsoup4>=4.12.3,<5
+requests>=2.32.0,<3
+python-dotenv>=1.0.1,<2
+google-genai>=1.11.0,<2
+numpy>=1.26.0,<3
+fastapi>=0.115.0,<1
+uvicorn[standard]>=0.30.0,<1
+httpx>=0.27.0,<1
